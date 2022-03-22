@@ -11,7 +11,7 @@ const operators = {
     "*": { "name": "Multiplication", "op": (b1, b2) => b1.multiply(b2) },
     "^": { "name": "Pow", "op": (b1, b2) => b1.pow(b2) },
     "%": { "name": "Modulo", "op": (b1, b2) => b1.mod(b2) },
-    "^%": { "name": "ModPow", "op": (b1, b2) => b1.modPow(b2) }
+    "^%": { "name": "ModPow", "op": (b1, b2, b3) => b1.modPow(b2, b3) }
 }
 
 const operatorsSymbols = Object.keys(operators) 
@@ -27,7 +27,7 @@ async function main() {
     let lastOperator = null
     let lastResult = null
     do {
-        let input = await prompt.get(['operand1', 'operand2', 'operator']);
+        let input = await prompt.get(['operand1', 'operand2', 'operator'])
         lastOperator = input.operator
         if (operatorsSymbols.includes(lastOperator)) {
             try {
@@ -44,7 +44,13 @@ async function main() {
                     op2 = bigInt(input.operand2)
                 }
                 let func = operators[lastOperator]["op"]
-                lastResult = func(op1, op2)
+                if (func.length > 2) {
+                    let input2 = await prompt.get(['operand3'])
+                    let op3 = input2.operand3
+                    lastResult = func(op1, op2, op3)
+                } else {
+                    lastResult = func(op1, op2)
+                }
                 console.log("Result: " + lastResult.toString())
             } catch (err) {
                 console.log(err.message)
