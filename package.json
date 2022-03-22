@@ -1,0 +1,13 @@
+{
+  "name": "bigintcalc",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "run": "node src/main.js"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.51",
+    "prompt": "^1.2.2"
+  }
+}
