@@ -45,10 +45,9 @@ async function main() {
                 }
                 let func = operators[lastOperator]["op"]
                 lastResult = func(op1, op2)
-                console.log("Result: " + lastResult)
+                console.log("Result: " + lastResult.toString())
             } catch (err) {
-                console.log(err)
-                console.log("One of your operands is not a valid number!")
+                console.log(err.message)
             }
         } else if (lastOperator === "quit") {
             console.log("Good bye!")
