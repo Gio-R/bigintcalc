@@ -19,22 +19,35 @@ const operatorsSymbols = Object.keys(operators)
 async function main() {
     console.log("BigInt calculator")
     console.log("Insert 'quit' as operator to exit")
+    console.log("Insert 'last' as operand to use the result of the last operation")
     console.log("Available operators:")
     operatorsSymbols.forEach(element => {
         console.log(element + "\t:: " + operators[element]["name"]);
     });
     let lastOperator = null
+    let lastResult = null
     do {
         let input = await prompt.get(['operand1', 'operand2', 'operator']);
         lastOperator = input.operator
         if (operatorsSymbols.includes(lastOperator)) {
             try {
-                let op1 = bigInt(input.operand1)
-                let op2 = bigInt(input.operand2)
+                let op1 = null
+                let op2 = null
+                if (input.operand1 === "last" && lastResult != null) {
+                    op1 = lastResult
+                } else {
+                    op1 = bigInt(input.operand1)
+                }
+                if (input.operand2 === "last" && lastResult != null) {
+                    op2 = lastResult
+                } else {
+                    op2 = bigInt(input.operand2)
+                }
                 let func = operators[lastOperator]["op"]
-                let result = func(op1, op2)
-                console.log("Result: " + result)
+                lastResult = func(op1, op2)
+                console.log("Result: " + lastResult)
             } catch (err) {
+                console.log(err)
                 console.log("One of your operands is not a valid number!")
             }
         } else if (lastOperator === "quit") {
