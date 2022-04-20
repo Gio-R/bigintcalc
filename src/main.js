@@ -1,6 +1,6 @@
 
-const prompt = require('prompt');
-const bigInt = require("big-integer");
+const prompt = require('prompt')
+const bigInt = require("big-integer")
 
 prompt.start();
 
